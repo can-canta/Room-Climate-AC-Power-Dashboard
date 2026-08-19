@@ -15,9 +15,9 @@ import requests
 
 API_BASE = "https://api.switch-bot.com/v1.1"
 
-TOKEN = os.environ["SWITCHBOT_TOKEN"]
-SECRET = os.environ["SWITCHBOT_SECRET"]
-DEVICE_ID = os.environ["SWITCHBOT_DEVICE_ID"]
+TOKEN = os.environ["SWITCHBOT_TOKEN"].strip()
+SECRET = os.environ["SWITCHBOT_SECRET"].strip()
+DEVICE_ID = os.environ.get("SWITCHBOT_DEVICE_ID", "").strip()  # --list時は未設定でも可
 THRESHOLD_W = float(os.environ.get("THRESHOLD_W", "75"))
 MIN_THRESHOLD_W = float(os.environ.get("MIN_THRESHOLD_W", "60"))
 
