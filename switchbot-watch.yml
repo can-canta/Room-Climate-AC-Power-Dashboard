@@ -1,0 +1,23 @@
+name: switchbot-power-watch
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"  # GitHub Actions cronは実測で数分〜十数分の遅延あり得る点に注意
+  workflow_dispatch: {}
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - run: python switchbot_power_watch.py
+        env:
+          SWITCHBOT_TOKEN: ${{ secrets.SWITCHBOT_TOKEN }}
+          SWITCHBOT_SECRET: ${{ secrets.SWITCHBOT_SECRET }}
+          SWITCHBOT_DEVICE_ID: ${{ secrets.SWITCHBOT_DEVICE_ID }}
+          THRESHOLD_W: "75"
+          MIN_THRESHOLD_W: "60"
